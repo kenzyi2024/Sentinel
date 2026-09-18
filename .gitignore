@@ -1,0 +1,37 @@
+# ---- Java / Maven ----
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+
+# ---- Sentinel embedded database (generated at runtime) ----
+backend/data/
+data/
+*.db
+*.mv.db
+*.trace.db
+
+# ---- Node / frontend ----
+node_modules/
+frontend/dist/
+frontend/node_modules/
+frontend/.vite/
+npm-debug.log*
+yarn-error.log*
+
+# ---- Environment / secrets (never commit) ----
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
+# ---- IDE / OS ----
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.swp

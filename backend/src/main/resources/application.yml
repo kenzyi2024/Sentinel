@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: sentinel
+  # ---- Default profile: zero-setup embedded H2, file-backed so run history survives restarts ----
+  datasource:
+    url: jdbc:h2:file:./data/sentinel;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.sentinel: INFO
+
+# ---- Sentinel engine configuration ----
+# The risk model is data-driven: weights below are bound into RiskModelProperties and
+# multiplied by each scorer's normalized [0,1] signal. Tuning the model needs no code change.
+sentinel:
+  seed-on-startup: true
+  risk:
+    weights:
+      permission: 40
+      resource-sensitivity: 25
+      command-danger: 50
+      prompt-injection: 30
+      behavioral-anomaly: 30
+      policy-violation: 35
+      privilege-escalation: 45
+    # Score band cut-points (inclusive lower bound). 0-29 LOW, 30-59 MEDIUM, 60-84 HIGH, 85-100 CRITICAL.
+    bands:
+      medium: 30
+      high: 60
+      critical: 85
+    # A run is force-terminated (kill switch) after this many CRITICAL blocked actions.
+    critical-block-terminate-threshold: 3
+  anomaly:
+    window-size: 25          # sliding window of recent actions per run
+    enumeration-threshold: 12 # reads/lists within the window that count as bulk enumeration
+    zscore-alert: 2.5        # standard deviations above baseline that flags a frequency spike
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - http://localhost:4173
+      - http://localhost:3000
+
+---
+# ---- Production-style profile: PostgreSQL. Activate with --spring.profiles.active=postgres ----
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/sentinel}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER:sentinel}
+    password: ${DB_PASSWORD:sentinel}
+  jpa:
+    hibernate:
+      # A real deployment would manage schema with Flyway/Liquibase migrations instead.
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+      enabled: false
