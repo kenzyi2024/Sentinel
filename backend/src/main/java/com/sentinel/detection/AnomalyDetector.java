@@ -90,7 +90,10 @@ public class AnomalyDetector {
                     "Bulk enumeration: %d read/list actions within the last %d (threshold %d).",
                     currentWindowReads, windowActionCount, props.getEnumerationThreshold()));
         }
-        if (zScore > props.getZscoreAlert()) {
+        // A z-score is only meaningful once there is real read volume — otherwise a 2→3 read jump
+        // registers as several sigma purely because the baseline variance is tiny.
+        int minReadsForZScore = Math.max(5, props.getEnumerationThreshold() / 2);
+        if (zScore > props.getZscoreAlert() && currentWindowReads >= minReadsForZScore) {
             score = Math.max(score, clamp(0.4 + (zScore - props.getZscoreAlert()) / (props.getZscoreAlert() * 3.0)));
             reasons.add(String.format(
                     "Read rate %.1fσ above the agent's established baseline (alert threshold %.1fσ).",

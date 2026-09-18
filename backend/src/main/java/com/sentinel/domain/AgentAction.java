@@ -80,6 +80,11 @@ public record AgentAction(
         return new AgentAction(ActionType.NETWORK_REQUEST, host, null, null, Map.of(), intent, false);
     }
 
+    /** An outbound request whose payload/description is supplied so it can be scanned for exfiltration intent. */
+    public static AgentAction network(String host, String content, String intent) {
+        return new AgentAction(ActionType.NETWORK_REQUEST, host, null, content, Map.of(), intent, false);
+    }
+
     /** The text that should be scanned for injection: explicit content, else the command. */
     public String scannableText() {
         if (content != null && !content.isBlank()) {

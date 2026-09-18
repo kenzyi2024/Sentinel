@@ -26,8 +26,8 @@ public class CommandAnalyzer {
     }
 
     private static final List<Rule> RULES = List.of(
-            Rule.of("\\brm\\s+-[a-z]*[rf][a-z]*\\s+(/|~|\\$home|\\.)\\b", 0.95,
-                    "Recursively deletes a root/home/current path (rm -rf on a critical location).", false, true),
+            Rule.of("\\brm\\s+-[a-z]*[rf][a-z]*\\s+(/|~|\\$home)", 0.95,
+                    "Recursively deletes a root or home path (rm -rf on a critical location).", false, true),
             Rule.of("\\brm\\s+-[a-z]*[rf]", 0.8,
                     "Recursive force delete (rm -rf).", false, false),
             Rule.of(":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;\\s*:", 0.95,

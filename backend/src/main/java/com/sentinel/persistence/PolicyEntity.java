@@ -47,7 +47,7 @@ public class PolicyEntity {
 
     private boolean enabled;
 
-    protected PolicyEntity() {
+    public PolicyEntity() {
     }
 
     public String getId() {
