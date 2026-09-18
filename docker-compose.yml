@@ -1,0 +1,39 @@
+# Optional full-stack backend setup with PostgreSQL.
+# The simplest way to run the backend is `cd backend && ./mvnw spring-boot:run` (embedded H2,
+# no Docker needed). Use this compose file when you want the production-style PostgreSQL profile.
+#
+#   docker compose up --build
+#
+# The API is then available at http://localhost:8080 (Swagger UI at /swagger-ui.html).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: sentinel
+      POSTGRES_USER: sentinel
+      POSTGRES_PASSWORD: sentinel
+    ports:
+      - '5432:5432'
+    volumes:
+      - sentinel-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U sentinel']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      DB_URL: jdbc:postgresql://db:5432/sentinel
+      DB_USER: sentinel
+      DB_PASSWORD: sentinel
+    ports:
+      - '8080:8080'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  sentinel-db:
