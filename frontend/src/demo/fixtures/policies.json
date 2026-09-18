@@ -1,0 +1,73 @@
+[ {
+  "id" : "policy-research-no-secrets",
+  "name" : "Research agents cannot access secrets",
+  "priority" : 100,
+  "archetypes" : [ "RESEARCH" ],
+  "actionTypes" : [ ],
+  "resourcePattern" : null,
+  "minSensitivity" : "SECRET",
+  "requiredCapability" : null,
+  "effect" : "DENY",
+  "reason" : "Research agents gather information from documentation and code; they have no legitimate need for credentials (least privilege).",
+  "enabled" : true
+}, {
+  "id" : "policy-delete-sensitive-denied",
+  "name" : "Deleting sensitive files is denied",
+  "priority" : 95,
+  "archetypes" : [ ],
+  "actionTypes" : [ "DELETE_FILE" ],
+  "resourcePattern" : null,
+  "minSensitivity" : "SENSITIVE",
+  "requiredCapability" : null,
+  "effect" : "DENY",
+  "reason" : "Deletion of sensitive configuration or secret files is never permitted.",
+  "enabled" : true
+}, {
+  "id" : "policy-secret-access-review",
+  "name" : "Access to secret resources is reviewed",
+  "priority" : 90,
+  "archetypes" : [ ],
+  "actionTypes" : [ ],
+  "resourcePattern" : null,
+  "minSensitivity" : "SECRET",
+  "requiredCapability" : "READ_SECRETS",
+  "effect" : "REQUIRE_APPROVAL",
+  "reason" : "Any action touching SECRET material is held for human review, even for agents that hold the READ_SECRETS capability.",
+  "enabled" : true
+}, {
+  "id" : "policy-egress-approval",
+  "name" : "Outbound network requires approval",
+  "priority" : 80,
+  "archetypes" : [ ],
+  "actionTypes" : [ "NETWORK_REQUEST" ],
+  "resourcePattern" : null,
+  "minSensitivity" : null,
+  "requiredCapability" : null,
+  "effect" : "REQUIRE_APPROVAL",
+  "reason" : "Outbound network requests are a primary data-exfiltration channel and require human approval (human-in-the-loop).",
+  "enabled" : true
+}, {
+  "id" : "policy-config-approval",
+  "name" : "Configuration changes require approval",
+  "priority" : 70,
+  "archetypes" : [ ],
+  "actionTypes" : [ "MODIFY_CONFIG" ],
+  "resourcePattern" : null,
+  "minSensitivity" : null,
+  "requiredCapability" : null,
+  "effect" : "REQUIRE_APPROVAL",
+  "reason" : "Changes to configuration can alter the system's security posture and must be reviewed.",
+  "enabled" : true
+}, {
+  "id" : "policy-install-warn",
+  "name" : "Dependency installs are logged for review",
+  "priority" : 40,
+  "archetypes" : [ ],
+  "actionTypes" : [ "INSTALL_DEPENDENCY" ],
+  "resourcePattern" : null,
+  "minSensitivity" : null,
+  "requiredCapability" : null,
+  "effect" : "WARN",
+  "reason" : "Installing third-party dependencies is a supply-chain risk; surfaced for review.",
+  "enabled" : true
+} ]

@@ -1,0 +1,25 @@
+[ {
+  "id" : "agent-developer",
+  "name" : "Developer Agent",
+  "archetype" : "DEVELOPER",
+  "declaredGoal" : "Implement the requested change and keep the build green.",
+  "capabilities" : [ "READ_PROJECT", "EXECUTE_COMMAND", "INSTALL_DEPENDENCY", "WRITE_PROJECT" ]
+}, {
+  "id" : "agent-research",
+  "name" : "Research Agent",
+  "archetype" : "RESEARCH",
+  "declaredGoal" : "Read documentation and source to answer a question and produce a report.",
+  "capabilities" : [ "READ_PROJECT" ]
+}, {
+  "id" : "agent-malicious",
+  "name" : "Malicious Agent",
+  "archetype" : "MALICIOUS",
+  "declaredGoal" : "Exfiltrate secrets and establish control of the environment.",
+  "capabilities" : [ "DELETE_FILE", "NETWORK_ACCESS", "WRITE_PROJECT", "READ_PROJECT", "MODIFY_CONFIG", "EXECUTE_COMMAND" ]
+}, {
+  "id" : "agent-compromised",
+  "name" : "Compromised Agent",
+  "archetype" : "COMPROMISED",
+  "declaredGoal" : "Fix the reported bug (before being hijacked by an injected instruction).",
+  "capabilities" : [ "READ_PROJECT", "EXECUTE_COMMAND", "WRITE_PROJECT", "NETWORK_ACCESS" ]
+} ]
