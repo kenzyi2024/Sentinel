@@ -18,6 +18,7 @@ import com.sentinel.domain.enums.AgentState;
 import com.sentinel.domain.enums.Capability;
 import com.sentinel.domain.enums.Decision;
 import com.sentinel.domain.enums.ResourceSensitivity;
+import com.sentinel.policy.PolicyEngine;
 import com.sentinel.risk.RiskEngine;
 import com.sentinel.security.PermissionChecker;
 import com.sentinel.security.PermissionModel;
@@ -52,7 +53,7 @@ public class ActionEvaluator {
     private final CommandAnalyzer commandAnalyzer;
     private final AnomalyDetector anomalyDetector;
     private final EscalationDetector escalationDetector;
-    private final com.sentinel.policy.PolicyEngine policyEngine;
+    private final PolicyEngine policyEngine;
     private final RiskEngine riskEngine;
     private final DecisionResolver decisionResolver;
     private final ExplanationBuilder explanationBuilder;
@@ -65,7 +66,7 @@ public class ActionEvaluator {
                            CommandAnalyzer commandAnalyzer,
                            AnomalyDetector anomalyDetector,
                            EscalationDetector escalationDetector,
-                           com.sentinel.policy.PolicyEngine policyEngine,
+                           PolicyEngine policyEngine,
                            RiskEngine riskEngine,
                            DecisionResolver decisionResolver,
                            ExplanationBuilder explanationBuilder,
