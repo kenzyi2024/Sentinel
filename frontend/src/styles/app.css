@@ -300,6 +300,10 @@
   font-family: var(--font-mono);
   font-size: 12.5px;
 }
+.stream-scroll {
+  max-height: 62vh;
+  overflow: auto;
+}
 .stream th {
   text-align: left;
   font-weight: 500;
@@ -310,8 +314,9 @@
   padding: 8px 10px;
   border-bottom: 1px solid var(--line);
   position: sticky;
-  top: 52px;
-  background: var(--bg-1);
+  top: 0;
+  background: var(--bg-2);
+  z-index: 1;
 }
 .stream td {
   padding: 7px 10px;

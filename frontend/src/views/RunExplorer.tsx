@@ -82,7 +82,7 @@ export function RunExplorer({ scenarios, activeRun, running, onRun }: Props) {
                   click a row to investigate
                 </span>
               </div>
-              <div style={{ overflowX: 'auto' }}>
+              <div className="stream-scroll">
                 <EventStream events={activeRun.events} selectedId={selected?.id} onSelect={setSelected} />
               </div>
             </div>
