@@ -10,7 +10,7 @@ because it can be hijacked by injected instructions, or because it is adversaria
 |--------|-----------------|---------------------|
 | **Indirect prompt injection** | Instructions hidden in ingested files/tickets (`docs/onboarding.md`, `issues/TICKET-482.md`) | `PatternInjectionScanner` flags override / role / exfiltration / control-disable patterns (incl. spaced-out and Base64-encoded); the agent transitions to `COMPROMISED` |
 | **Secret access without clearance** | Reading `.env`, `secrets/`, keys | `ResourceClassifier` marks the resource SECRET; `PermissionModel` requires `READ_SECRETS`; missing capability → hard **block** |
-| **Dangerous shell commands** | `rm -rf /`, `curl … | sh`, reverse shells, fork bombs | `CommandAnalyzer` scores danger; danger ≥ 0.9 is **never allowed** |
+| **Dangerous shell commands** | `rm -rf /`, piping a download into a shell, reverse shells, fork bombs | `CommandAnalyzer` scores danger; danger ≥ 0.9 is **never allowed** |
 | **Privilege escalation / tampering** | `sudo`, `chmod 777`, disabling logging, editing config | Command/escalation detection + config-change approval policy |
 | **Data exfiltration** | Outbound requests carrying secrets | Egress requires approval; combined with prior discovery it reaches CRITICAL → **block** |
 | **Multi-step attack chains** | recon → discovery → exfiltration across many actions | `EscalationDetector` traverses the event graph to recognize the sequence no single action reveals |
