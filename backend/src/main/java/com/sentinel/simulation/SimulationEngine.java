@@ -1,9 +1,12 @@
 package com.sentinel.simulation;
 
+import com.sentinel.api.dto.CustomScenarioRequest;
 import com.sentinel.api.dto.RunDetail;
 import com.sentinel.config.RiskModelProperties;
+import com.sentinel.domain.Agent;
 import com.sentinel.domain.AgentAction;
 import com.sentinel.domain.Event;
+import com.sentinel.domain.ScenarioInfo;
 import com.sentinel.domain.Policy;
 import com.sentinel.domain.SecurityReport;
 import com.sentinel.domain.enums.AgentState;
@@ -71,6 +74,20 @@ public class SimulationEngine {
         ScenarioDefinition definition = scenarioLibrary.byId(scenarioId)
                 .orElseThrow(() -> ResourceNotFoundException.of("Scenario", scenarioId));
         return execute(definition);
+    }
+
+    /** Runs a user-defined scenario through the same engine as the built-in ones. */
+    @Transactional
+    public RunDetail runCustom(CustomScenarioRequest request) {
+        Agent agent = new Agent("agent-custom", request.name() + " Agent", request.archetype(),
+                "User-defined custom scenario.", request.capabilities());
+        List<AgentAction> actions = request.actions().stream().map(a -> a.toAction()).toList();
+        ScenarioInfo info = new ScenarioInfo("custom", request.name(), "User-defined scenario.",
+                "Explore how the engine evaluates a custom sequence of agent actions.",
+                "User-defined", request.archetype(),
+                "Outcomes depend on the chosen actions and the agent's capabilities.",
+                agent.capabilities(), actions.size());
+        return execute(new ScenarioDefinition(info, agent, actions));
     }
 
     @Transactional

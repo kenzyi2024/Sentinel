@@ -48,6 +48,37 @@ class ApiIntegrationTest {
     }
 
     @Test
+    void runsAUserDefinedCustomScenario() throws Exception {
+        String body = """
+                {
+                  "name": "My custom probe",
+                  "archetype": "DEVELOPER",
+                  "capabilities": ["READ_PROJECT"],
+                  "actions": [
+                    {"type": "READ_FILE", "resource": "src/App.java", "intent": "read source"},
+                    {"type": "READ_ENV", "resource": ".env", "intent": "attempt to read secrets"}
+                  ]
+                }
+                """;
+        mockMvc.perform(post("/api/runs/custom")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.events.length()").value(2))
+                // The developer agent lacks READ_SECRETS, so the .env read is blocked with a safe alternative.
+                .andExpect(jsonPath("$.events[1].decision").value("BLOCKED"))
+                .andExpect(jsonPath("$.events[1].safeAlternative.action").exists());
+    }
+
+    @Test
+    void rejectsACustomScenarioWithNoActions() throws Exception {
+        mockMvc.perform(post("/api/runs/custom")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"x\",\"archetype\":\"DEVELOPER\",\"actions\":[]}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void rejectsARunRequestWithNoScenarioId() throws Exception {
         mockMvc.perform(post("/api/runs")
                         .contentType(MediaType.APPLICATION_JSON)

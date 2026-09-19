@@ -1,5 +1,6 @@
 package com.sentinel.api;
 
+import com.sentinel.api.dto.CustomScenarioRequest;
 import com.sentinel.api.dto.RunDetail;
 import com.sentinel.api.dto.RunRequest;
 import com.sentinel.api.dto.RunSummary;
@@ -39,6 +40,13 @@ public class RunController {
     @ResponseStatus(HttpStatus.CREATED)
     public RunDetail create(@Valid @RequestBody RunRequest request) {
         return simulationEngine.run(request.scenarioId());
+    }
+
+    /** Launch a user-defined scenario (custom agent + custom action sequence). */
+    @PostMapping("/custom")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RunDetail createCustom(@Valid @RequestBody CustomScenarioRequest request) {
+        return simulationEngine.runCustom(request);
     }
 
     @GetMapping
