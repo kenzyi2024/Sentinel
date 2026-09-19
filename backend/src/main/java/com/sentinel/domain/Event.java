@@ -48,7 +48,8 @@ public record Event(
         List<String> recommendations,
         String previousEventId,
         AgentState agentStateAfter,
-        boolean inducedByInjection
+        boolean inducedByInjection,
+        SafeAlternative safeAlternative
 ) {
     public Event {
         parameters = parameters == null ? Map.of() : Map.copyOf(parameters);
@@ -110,6 +111,7 @@ public record Event(
         private String previousEventId;
         private AgentState agentStateAfter = AgentState.ACTIVE;
         private boolean inducedByInjection;
+        private SafeAlternative safeAlternative;
 
         public Builder id(String id) { this.id = id; return this; }
         public Builder runId(String runId) { this.runId = runId; return this; }
@@ -137,13 +139,14 @@ public record Event(
         public Builder previousEventId(String id) { this.previousEventId = id; return this; }
         public Builder agentStateAfter(AgentState s) { this.agentStateAfter = s; return this; }
         public Builder inducedByInjection(boolean b) { this.inducedByInjection = b; return this; }
+        public Builder safeAlternative(SafeAlternative s) { this.safeAlternative = s; return this; }
 
         public Event build() {
             return new Event(id, runId, sequence, timestamp, agentId, agentName, actionType, resource,
                     command, intent, parameters, requiredCapabilities, missingCapabilities,
                     resourceSensitivity, riskAssessment, injectionFindings, anomalyResult, policyDecision,
                     decision, executed, reasons, warnings, recommendations, previousEventId,
-                    agentStateAfter, inducedByInjection);
+                    agentStateAfter, inducedByInjection, safeAlternative);
         }
     }
 }

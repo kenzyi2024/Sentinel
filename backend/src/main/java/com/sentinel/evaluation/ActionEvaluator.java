@@ -13,6 +13,7 @@ import com.sentinel.domain.InjectionFinding;
 import com.sentinel.domain.PermissionCheck;
 import com.sentinel.domain.PolicyDecision;
 import com.sentinel.domain.RiskAssessment;
+import com.sentinel.domain.SafeAlternative;
 import com.sentinel.domain.enums.ActionType;
 import com.sentinel.domain.enums.AgentState;
 import com.sentinel.domain.enums.Capability;
@@ -58,6 +59,7 @@ public class ActionEvaluator {
     private final DecisionResolver decisionResolver;
     private final ExplanationBuilder explanationBuilder;
     private final AgentStateMachine stateMachine;
+    private final SafeAlternativeAdvisor safeAlternativeAdvisor;
 
     public ActionEvaluator(ResourceClassifier resourceClassifier,
                            PermissionModel permissionModel,
@@ -70,7 +72,8 @@ public class ActionEvaluator {
                            RiskEngine riskEngine,
                            DecisionResolver decisionResolver,
                            ExplanationBuilder explanationBuilder,
-                           AgentStateMachine stateMachine) {
+                           AgentStateMachine stateMachine,
+                           SafeAlternativeAdvisor safeAlternativeAdvisor) {
         this.resourceClassifier = resourceClassifier;
         this.permissionModel = permissionModel;
         this.permissionChecker = permissionChecker;
@@ -83,6 +86,7 @@ public class ActionEvaluator {
         this.decisionResolver = decisionResolver;
         this.explanationBuilder = explanationBuilder;
         this.stateMachine = stateMachine;
+        this.safeAlternativeAdvisor = safeAlternativeAdvisor;
     }
 
     public Event evaluate(EvaluationRequest request) {
@@ -109,6 +113,7 @@ public class ActionEvaluator {
         Resolution resolution = decisionResolver.resolve(
                 permissionCheck, policyDecision, assessment, commandAnalysis.danger());
         Explanation explanation = explanationBuilder.explain(context, assessment, resolution);
+        SafeAlternative safeAlternative = safeAlternativeAdvisor.advise(context, resolution).orElse(null);
 
         boolean ingestedInjection = !injectionFindings.isEmpty() && isIngest(action.type());
         int consecutiveBlocks = resolution.decision() == Decision.BLOCKED
@@ -148,6 +153,7 @@ public class ActionEvaluator {
                 .previousEventId(previousEventId)
                 .agentStateAfter(stateAfter)
                 .inducedByInjection(action.inducedByInjection())
+                .safeAlternative(safeAlternative)
                 .build();
     }
 
