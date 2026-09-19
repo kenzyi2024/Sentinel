@@ -1,4 +1,13 @@
-import type { Agent, EngineMeta, Mode, Policy, RunDetail, RunSummary, ScenarioInfo } from '../types';
+import type {
+  Agent,
+  CustomScenarioInput,
+  EngineMeta,
+  Mode,
+  Policy,
+  RunDetail,
+  RunSummary,
+  ScenarioInfo,
+} from '../types';
 import { demoAgents, demoPolicies, demoRunList, demoRunsByScenario, demoScenarios } from '../demo/loader';
 
 const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? 'http://localhost:8080/api';
@@ -12,6 +21,7 @@ export interface SentinelApi {
   runs(): Promise<RunSummary[]>;
   run(id: string): Promise<RunDetail>;
   createRun(scenarioId: string): Promise<RunDetail>;
+  createCustomRun(input: CustomScenarioInput): Promise<RunDetail>;
   meta(): Promise<EngineMeta | null>;
 }
 
@@ -54,6 +64,9 @@ class LiveApi implements SentinelApi {
   }
   createRun(scenarioId: string) {
     return this.post<RunDetail>('/runs', { scenarioId });
+  }
+  createCustomRun(input: CustomScenarioInput) {
+    return this.post<RunDetail>('/runs/custom', input);
   }
   meta() {
     return this.get<EngineMeta>('/meta').catch(() => null);
@@ -101,6 +114,10 @@ class DemoApi implements SentinelApi {
     const found = demoRunsByScenario[scenarioId];
     if (!found) throw new Error(`No demo run for scenario: ${scenarioId}`);
     return found;
+  }
+  async createCustomRun(): Promise<RunDetail> {
+    // The engine runs on the backend; custom sequences can't be evaluated from bundled fixtures.
+    throw new Error('Custom scenarios require the local backend (live mode). Start it and reload.');
   }
   async meta() {
     return {

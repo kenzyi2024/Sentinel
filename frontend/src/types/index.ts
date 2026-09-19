@@ -49,6 +49,11 @@ export interface PolicyDecision {
   reason: string;
 }
 
+export interface SafeAlternative {
+  action: string;
+  rationale: string;
+}
+
 export interface SentinelEvent {
   id: string;
   runId: string;
@@ -76,6 +81,7 @@ export interface SentinelEvent {
   previousEventId: string | null;
   agentStateAfter: AgentState;
   inducedByInjection: boolean;
+  safeAlternative: SafeAlternative | null;
 }
 
 export interface RunSummary {
@@ -182,6 +188,22 @@ export interface EngineMeta {
   totalEvents: number;
   capabilities: string[];
   actionTypes: string[];
+}
+
+export interface CustomActionInput {
+  type: string;
+  resource: string;
+  command?: string;
+  content?: string;
+  intent?: string;
+  inducedByInjection?: boolean;
+}
+
+export interface CustomScenarioInput {
+  name: string;
+  archetype: AgentArchetype;
+  capabilities: string[];
+  actions: CustomActionInput[];
 }
 
 export type Mode = 'live' | 'demo';

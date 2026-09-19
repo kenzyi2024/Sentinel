@@ -1,20 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { EngineMeta, Mode, Policy, RunDetail, ScenarioInfo } from './types';
+import type { CustomScenarioInput, EngineMeta, Mode, Policy, RunDetail, ScenarioInfo } from './types';
 import type { SentinelApi } from './api/client';
 import { createApi } from './api/client';
 import { Shield } from './components/ui';
 import { Landing } from './views/Landing';
 import { RunExplorer } from './views/RunExplorer';
 import { ScenarioLab } from './views/ScenarioLab';
+import { ScenarioBuilder } from './views/ScenarioBuilder';
 import { Policies } from './views/Policies';
 import { About } from './views/About';
 import { APP_NAME } from './config';
 
-type View = 'landing' | 'explorer' | 'scenarios' | 'policies' | 'about';
+type View = 'landing' | 'explorer' | 'scenarios' | 'builder' | 'policies' | 'about';
 
 const NAV: { id: View; label: string }[] = [
   { id: 'explorer', label: 'Run Explorer' },
   { id: 'scenarios', label: 'Scenario Lab' },
+  { id: 'builder', label: 'Builder' },
   { id: 'policies', label: 'Policies' },
   { id: 'about', label: 'About' },
 ];
@@ -62,6 +64,22 @@ export default function App() {
     [api],
   );
 
+  // Custom runs must succeed before switching views, so errors surface in the builder.
+  const runCustom = useCallback(
+    async (input: CustomScenarioInput) => {
+      if (!api) throw new Error('Engine not ready.');
+      setRunning(true);
+      try {
+        const detail = await api.createCustomRun(input);
+        setActiveRun(detail);
+        setView('explorer');
+      } finally {
+        setRunning(false);
+      }
+    },
+    [api],
+  );
+
   return (
     <div className="app">
       <header className="topbar">
@@ -95,6 +113,7 @@ export default function App() {
           <RunExplorer scenarios={scenarios} activeRun={activeRun} running={running} onRun={runScenario} />
         )}
         {ready && view === 'scenarios' && <ScenarioLab scenarios={scenarios} running={running} onRun={runScenario} />}
+        {ready && view === 'builder' && <ScenarioBuilder mode={mode} running={running} onRun={runCustom} />}
         {ready && view === 'policies' && <Policies policies={policies} mode={mode} />}
         {ready && view === 'about' && <About meta={meta} />}
       </main>

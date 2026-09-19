@@ -154,6 +154,20 @@ export function InvestigationDrawer({ event, events, onClose, onSelect }: Props)
             ))}
           </ul>
 
+          {event.safeAlternative && (
+            <>
+              <div className="section-title" style={{ marginTop: 'var(--sp-4)' }}>
+                Safer alternative
+              </div>
+              <div className="callout" style={{ borderLeftColor: 'var(--low)' }}>
+                <div style={{ fontWeight: 500 }}>{event.safeAlternative.action}</div>
+                <div className="muted" style={{ marginTop: 4, fontSize: 12.5 }}>
+                  {event.safeAlternative.rationale}
+                </div>
+              </div>
+            </>
+          )}
+
           {event.recommendations.length > 0 && (
             <>
               <div className="section-title" style={{ marginTop: 'var(--sp-4)' }}>
