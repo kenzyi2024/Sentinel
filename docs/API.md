@@ -15,6 +15,7 @@ All payloads are JSON. Errors use a uniform shape (see [Errors](#errors)).
 ## Runs
 
 - `POST /api/runs` — run a scenario. Body: `{ "scenarioId": "compromised-agent" }` → `201` `RunDetail`
+- `POST /api/runs/custom` — run a user-defined scenario (custom agent + action sequence) → `201` `RunDetail`
 - `GET /api/runs` → `RunSummary[]` (newest first)
 - `GET /api/runs/{id}` → `RunDetail` (summary + events + report)
 - `GET /api/runs/{id}/events` → `Event[]`
@@ -25,7 +26,22 @@ All payloads are JSON. Errors use a uniform shape (see [Errors](#errors)).
 An **`Event`** carries the full evaluation: `actionType`, `resource`, `requiredCapabilities`,
 `missingCapabilities`, `resourceSensitivity`, `riskAssessment { score, band, factors[] }`,
 `injectionFindings[]`, `anomalyResult`, `policyDecision`, `decision`, `reasons[]`,
-`recommendations[]`, `previousEventId`, `agentStateAfter`.
+`recommendations[]`, `safeAlternative { action, rationale }` (for blocked/held actions),
+`previousEventId`, `agentStateAfter`.
+
+**`CustomScenarioRequest`** example (for `POST /api/runs/custom`):
+
+```json
+{
+  "name": "My probe",
+  "archetype": "COMPROMISED",
+  "capabilities": ["READ_PROJECT", "NETWORK_ACCESS"],
+  "actions": [
+    { "type": "READ_FILE", "resource": "issues/TICKET-482.md", "content": "…injected text…", "intent": "read a ticket" },
+    { "type": "READ_ENV", "resource": ".env", "intent": "read secrets" }
+  ]
+}
+```
 
 ## Policies
 

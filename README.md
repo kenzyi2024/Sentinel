@@ -86,9 +86,15 @@ Click **"Run the compromised-agent demo"** (or run the `compromised-agent` scena
 | 19 | Read `.env` | ⛔ **Blocked** | No `READ_SECRETS` capability + CRITICAL risk |
 | 20 | Exfiltrate `.env` to an external host | ⛔ **Blocked** | Exfiltration after recon+discovery → CRITICAL; agent **QUARANTINED** |
 
-Click any event to open the **investigation panel**: what was required, what was missing, which rules fired, the risk-factor breakdown, and exactly why it was blocked.
+Click any event to open the **investigation panel**: what was required, what was missing, which rules fired, the risk-factor breakdown, and exactly why it was blocked. For every blocked or held action it also proposes a **safer alternative** — a concrete action the agent could take instead (e.g. *"request the value through a scoped secrets broker instead of reading `.env`"*).
 
 ![Investigation panel](screenshots/03-investigation.png)
+
+### Build your own
+
+The **Scenario Builder** lets you compose a custom agent (archetype + capability grant) and an arbitrary sequence of actions, then run it through the very same engine — a live way to probe how the risk model reacts to whatever you throw at it. (Custom runs execute on the backend, so they need it running; the six built-in scenarios run in the static demo.)
+
+![Scenario Builder](screenshots/06-builder.png)
 
 ## Architecture
 
@@ -160,7 +166,7 @@ sentinel/
 │   │   ├── persistence/ repository/  # JPA entities, mappers, Spring Data repositories
 │   │   ├── api/ + api/dto/  # REST controllers + DTOs
 │   │   └── config/ exception/
-│   └── src/test/java/com/sentinel/   # 60 unit + integration tests
+│   └── src/test/java/com/sentinel/   # 65 unit + integration tests
 ├── frontend/                # React + Vite + TypeScript console
 │   └── src/{components,views,api,demo,styles,lib,types}
 ├── docs/                    # architecture, threat model, API, portfolio notes
@@ -215,6 +221,7 @@ This is what makes the **GitHub Pages** deployment a complete, working demo with
 |--------|------|-------------|
 | `GET` | `/api/scenarios` | List scenarios |
 | `POST` | `/api/runs` | Run a scenario → full evaluated run |
+| `POST` | `/api/runs/custom` | Run a user-defined scenario (custom agent + actions) |
 | `GET` | `/api/runs/{id}` | Run detail (summary + events + report) |
 | `GET` | `/api/runs/{id}/report` | Security report |
 | `GET` | `/api/policies` | List policies |
@@ -227,7 +234,7 @@ Full reference: [`docs/API.md`](docs/API.md) or the live Swagger UI.
 ## Testing
 
 ```bash
-cd backend && ./mvnw verify      # 60 unit + integration tests (JUnit 5, Mockito, MockMvc, @DataJpaTest)
+cd backend && ./mvnw verify      # 65 unit + integration tests (JUnit 5, Mockito, MockMvc, @DataJpaTest)
 cd frontend && npm test          # Vitest + Testing Library
 ```
 

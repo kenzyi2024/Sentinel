@@ -16,9 +16,9 @@ hold it for review, explaining every decision.
 ## Résumé bullets
 
 - Built **Sentinel**, a full-stack AI-agent security platform (Java 21 / Spring Boot API + React/TypeScript console) that intercepts every action a simulated agent attempts and resolves it to **allow / block / require-approval** with a deterministic, fully local engine — **no external LLM, API keys, or network required**.
-- Designed a modular **7-dimension risk-scoring engine** (Strategy pattern) where each scorer emits an explainable factor; the numeric score always reconciles with its contributing reasons, so every decision answers "why?".
+- Designed a modular **7-dimension risk-scoring engine** (Strategy pattern) where each scorer emits an explainable factor; the numeric score always reconciles with its contributing reasons, so every decision answers "why?" — and every blocked action is paired with a concrete **safer alternative**.
 - Implemented deterministic **prompt-injection detection** (pattern + obfuscation + Base64 decoding), **behavioral anomaly detection** using **Welford's online variance** over a sliding window, and **directed-graph traversal** to recognize reconnaissance → discovery → exfiltration attack chains across a run.
-- Engineered a clean layered backend with a **configurable policy engine**, JPA event-store persistence (H2 / PostgreSQL), an OpenAPI-documented REST API, and **60 unit + integration tests**; wired **GitHub Actions CI** and a static **GitHub Pages** demo generated from real engine output.
+- Engineered a clean layered backend with a **configurable policy engine**, JPA event-store persistence (H2 / PostgreSQL), an OpenAPI-documented REST API (including a **Scenario Builder** that runs user-defined agents and action sequences through the same engine), and **65 unit + integration tests**; wired **GitHub Actions CI** and a static **GitHub Pages** demo generated from real engine output.
 
 ## Technical skills demonstrated
 
@@ -62,7 +62,7 @@ hold it for review, explaining every decision.
 > directed graph and traverses the predecessor chain to catch recon→discovery→exfiltration chains
 > that no single action reveals. It's deterministic and local by design — a monitoring layer that was
 > itself an LLM would inherit the very injection weakness it's meant to catch — but the detection
-> interfaces are built so an ML classifier could drop in later. It's covered by 60 tests, has CI, and
+> interfaces are built so an ML classifier could drop in later. It's covered by 65 tests, has CI, and
 > deploys a working demo to GitHub Pages using data the backend itself generates.
 
 ## Likely interview questions & answers
