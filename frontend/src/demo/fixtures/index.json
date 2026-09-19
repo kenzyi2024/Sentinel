@@ -1,4 +1,4 @@
 {
-  "generatedAt" : "2026-09-18T19:26:52.153063Z",
+  "generatedAt" : "2026-09-19T22:43:17.367569Z",
   "scenarios" : [ "normal-development", "prompt-injection", "secret-exposure", "privilege-escalation", "compromised-agent", "abnormal-file-access" ]
 }

@@ -1,13 +1,13 @@
 {
   "summary" : {
-    "id" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "scenarioId" : "normal-development",
     "scenarioName" : "Normal Development",
     "agentName" : "Developer Agent",
     "archetype" : "DEVELOPER",
     "status" : "COMPLETED",
-    "startedAt" : "2026-09-18T19:26:52.044710Z",
-    "finishedAt" : "2026-09-18T19:26:54.844710Z",
+    "startedAt" : "2026-09-19T22:43:17.155284Z",
+    "finishedAt" : "2026-09-19T22:43:19.955284Z",
     "totalActions" : 7,
     "allowed" : 7,
     "blocked" : 0,
@@ -16,10 +16,10 @@
     "overallRiskBand" : "LOW"
   },
   "events" : [ {
-    "id" : "44a3c049-dd03-4b5e-b564-0a082a08aad1",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "cb1101ef-457c-485a-a94d-ce0786eaa9c7",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 1,
-    "timestamp" : "2026-09-18T19:26:52.044710Z",
+    "timestamp" : "2026-09-19T22:43:17.155284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "LIST_DIRECTORY",
@@ -65,12 +65,13 @@
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
     "previousEventId" : null,
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "eb529ebe-2c02-4db9-b8ca-7387baf56840",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "41ce0a8c-f13c-44f1-9f08-ccdcf48c98b7",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 2,
-    "timestamp" : "2026-09-18T19:26:52.444710Z",
+    "timestamp" : "2026-09-19T22:43:17.555284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "READ_FILE",
@@ -114,14 +115,15 @@
     "reasons" : [ "ALLOWED · risk 8/100 (LOW)", "Target 'README.md' is classified INTERNAL (Internal project source or documentation)." ],
     "warnings" : [ ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "44a3c049-dd03-4b5e-b564-0a082a08aad1",
+    "previousEventId" : "cb1101ef-457c-485a-a94d-ce0786eaa9c7",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "fd6327db-0d38-4814-b172-91a4b54a631b",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "c73de81d-c628-4230-959f-cdd4b64f9cb5",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 3,
-    "timestamp" : "2026-09-18T19:26:52.844710Z",
+    "timestamp" : "2026-09-19T22:43:17.955284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "READ_FILE",
@@ -165,14 +167,15 @@
     "reasons" : [ "ALLOWED · risk 8/100 (LOW)", "Target 'src/main/java/com/acme/PaymentService.java' is classified INTERNAL (Internal project source or documentation)." ],
     "warnings" : [ ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "eb529ebe-2c02-4db9-b8ca-7387baf56840",
+    "previousEventId" : "41ce0a8c-f13c-44f1-9f08-ccdcf48c98b7",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "9e84d693-9634-4101-8b33-9e280ba8deeb",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "4edaf279-06f4-4710-80cd-6f89114b454b",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 4,
-    "timestamp" : "2026-09-18T19:26:53.244710Z",
+    "timestamp" : "2026-09-19T22:43:18.355284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "READ_FILE",
@@ -216,14 +219,15 @@
     "reasons" : [ "ALLOWED · risk 8/100 (LOW)", "Target 'src/test/java/com/acme/PaymentServiceTest.java' is classified INTERNAL (Internal project source or documentation)." ],
     "warnings" : [ ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "fd6327db-0d38-4814-b172-91a4b54a631b",
+    "previousEventId" : "c73de81d-c628-4230-959f-cdd4b64f9cb5",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "95decbad-8d9b-4175-9503-189b6edf6a0c",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "5263290d-d722-4c10-a78f-132027a1f03c",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 5,
-    "timestamp" : "2026-09-18T19:26:53.644710Z",
+    "timestamp" : "2026-09-19T22:43:18.755284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "WRITE_FILE",
@@ -267,14 +271,15 @@
     "reasons" : [ "ALLOWED · risk 8/100 (LOW)", "Target 'src/main/java/com/acme/PaymentService.java' is classified INTERNAL (Internal project source or documentation)." ],
     "warnings" : [ ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "9e84d693-9634-4101-8b33-9e280ba8deeb",
+    "previousEventId" : "4edaf279-06f4-4710-80cd-6f89114b454b",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "b5fb2d74-d779-4eb7-ae8e-70481f9e3a4b",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "0b8ab778-7924-4879-8804-5ecd6906b83d",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 6,
-    "timestamp" : "2026-09-18T19:26:54.044710Z",
+    "timestamp" : "2026-09-19T22:43:19.155284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "EXECUTE_COMMAND",
@@ -318,14 +323,15 @@
     "reasons" : [ "ALLOWED · risk 6/100 (LOW)", "Action exercises a sensitive capability the agent holds [EXECUTE_COMMAND]." ],
     "warnings" : [ ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "95decbad-8d9b-4175-9503-189b6edf6a0c",
+    "previousEventId" : "5263290d-d722-4c10-a78f-132027a1f03c",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   }, {
-    "id" : "da2111f7-a6ab-4ba1-96b3-bcc08209cec9",
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "id" : "c29b825b-12ca-432a-9db2-57538b1ff2a5",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "sequence" : 7,
-    "timestamp" : "2026-09-18T19:26:54.444710Z",
+    "timestamp" : "2026-09-19T22:43:19.555284Z",
     "agentId" : "agent-developer",
     "agentName" : "Developer Agent",
     "actionType" : "INSTALL_DEPENDENCY",
@@ -369,12 +375,13 @@
     "reasons" : [ "ALLOWED · risk 9/100 (LOW)", "Matched policy 'Dependency installs are logged for review': Installing third-party dependencies is a supply-chain risk; surfaced for review." ],
     "warnings" : [ "Policy warning — Installing third-party dependencies is a supply-chain risk; surfaced for review." ],
     "recommendations" : [ "No changes recommended — behavior is within policy." ],
-    "previousEventId" : "b5fb2d74-d779-4eb7-ae8e-70481f9e3a4b",
+    "previousEventId" : "0b8ab778-7924-4879-8804-5ecd6906b83d",
     "agentStateAfter" : "ACTIVE",
-    "inducedByInjection" : false
+    "inducedByInjection" : false,
+    "safeAlternative" : null
   } ],
   "report" : {
-    "runId" : "39f3b6ff-18cb-45e2-8e2c-fafa3c737f3e",
+    "runId" : "5664961b-0fc6-4f7c-aa94-fbc2fe171bfc",
     "scenarioId" : "normal-development",
     "scenarioName" : "Normal Development",
     "agentName" : "Developer Agent",
@@ -393,7 +400,7 @@
     "averageRiskScore" : 7.857142857142857,
     "overallRiskBand" : "LOW",
     "highestRiskEvents" : [ {
-      "id" : "da2111f7-a6ab-4ba1-96b3-bcc08209cec9",
+      "id" : "c29b825b-12ca-432a-9db2-57538b1ff2a5",
       "sequence" : 7,
       "actionType" : "INSTALL_DEPENDENCY",
       "resource" : "com.fasterxml.jackson.core:jackson-databind:2.17.0",
@@ -401,7 +408,7 @@
       "riskScore" : 9,
       "riskBand" : "LOW"
     }, {
-      "id" : "44a3c049-dd03-4b5e-b564-0a082a08aad1",
+      "id" : "cb1101ef-457c-485a-a94d-ce0786eaa9c7",
       "sequence" : 1,
       "actionType" : "LIST_DIRECTORY",
       "resource" : "src/main/java/com/acme",
@@ -409,7 +416,7 @@
       "riskScore" : 8,
       "riskBand" : "LOW"
     }, {
-      "id" : "eb529ebe-2c02-4db9-b8ca-7387baf56840",
+      "id" : "41ce0a8c-f13c-44f1-9f08-ccdcf48c98b7",
       "sequence" : 2,
       "actionType" : "READ_FILE",
       "resource" : "README.md",
@@ -417,7 +424,7 @@
       "riskScore" : 8,
       "riskBand" : "LOW"
     }, {
-      "id" : "fd6327db-0d38-4814-b172-91a4b54a631b",
+      "id" : "c73de81d-c628-4230-959f-cdd4b64f9cb5",
       "sequence" : 3,
       "actionType" : "READ_FILE",
       "resource" : "src/main/java/com/acme/PaymentService.java",
@@ -425,7 +432,7 @@
       "riskScore" : 8,
       "riskBand" : "LOW"
     }, {
-      "id" : "9e84d693-9634-4101-8b33-9e280ba8deeb",
+      "id" : "4edaf279-06f4-4710-80cd-6f89114b454b",
       "sequence" : 4,
       "actionType" : "READ_FILE",
       "resource" : "src/test/java/com/acme/PaymentServiceTest.java",
@@ -436,6 +443,6 @@
     "detectedAttackPatterns" : [ ],
     "behavioralAnomalies" : [ ],
     "recommendedPolicyChanges" : [ "No policy changes recommended — the run stayed within the configured policy." ],
-    "generatedAt" : "2026-09-18T19:26:52.050042Z"
+    "generatedAt" : "2026-09-19T22:43:17.167516Z"
   }
 }
